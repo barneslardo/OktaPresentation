@@ -1,4 +1,6 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const express = require("express");
 const cors = require("cors");
@@ -54,7 +56,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.SERVER_PORT || 3001;
+const port = process.env.PORT || 3001;
 
 database.sync().then(() => {
   app.listen(port, () => {
