@@ -1,0 +1,10 @@
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+.wacky {
+  font-family: "ZCOOL KuaiLe", cursive;
+  color: #ff8000;
+  text-shadow: 2px 2px 2px #1c6ea4;
+  font-size: 350%;
+}
