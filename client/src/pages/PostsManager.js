@@ -34,8 +34,7 @@ const styles = theme => ({
   }
 });
 
-// Communicate with Node server
-const API = process.env.REACT_APP_API || process.env.PORT;
+const API = process.env.PORT || "http://localhost:3001";
 
 class PostsManager extends Component {
   state = {
