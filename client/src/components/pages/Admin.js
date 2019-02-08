@@ -3,19 +3,22 @@ import React, { Component } from "react";
 class Admin extends Component {
   state = {
     currentUserName: "",
-    currentUserEmail: ""
+    currentUserEmail: "",
+    lastLogged: ""
   };
 
   componentDidMount() {
     const idToken = JSON.parse(localStorage.getItem("okta-token-storage"));
     this.setState({
       currentUserEmail: idToken.idToken.claims.email,
-      currentUserName: idToken.idToken.claims.name
+      currentUserName: idToken.idToken.claims.name,
+      lastLogged: idToken.idToken.claims.lastLogged
     });
+    console.log(idToken);
   }
 
   render() {
-    const { currentUserEmail, currentUserName } = this.state;
+    const { currentUserEmail, currentUserName, lastLogged } = this.state;
 
     return (
       <div>
@@ -23,6 +26,7 @@ class Admin extends Component {
         <h1>Welcome {currentUserName}</h1>
         <p>Email: {currentUserEmail}</p>
         <p>You have reached the authorized staff area of the portal</p>
+        <p>Last Login: {lastLogged}</p>
       </div>
     );
   }

@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const epilogue = require("epilogue");
 const OktaJwtVerifier = require("@okta/jwt-verifier");
+const Dealer = require("./cardApp");
 
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
