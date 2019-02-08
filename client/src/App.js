@@ -24,7 +24,7 @@ class App extends Component {
         <Security
           issuer="https://bigfootwebservice.okta.com/oauth2/ausacu2zhRbgylKNP356"
           client_id="0oaacx81uD0ndjUyF356"
-          redirect_uri={window.location.origin + "/implicit/callback"}
+          redirect_uri="https://powerful-brushlands-39786.herokuapp.com/implicit/callback"
           onAuthRequired={onAuthRequired}
         >
           <div className="App">
