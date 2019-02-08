@@ -4,12 +4,11 @@ import { Security, SecureRoute, ImplicitCallback } from "@okta/okta-react";
 
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
-import Staff from "./components/pages/Staff";
 import Login from "./components/auth/Login";
 import PostsManager from "./pages/PostsManager";
 import Admin from "./components/pages/Admin";
 import PostEditor from "./components/PostEditor";
-import Leads from "./components/pages/Leads";
+// import Leads from "./components/pages/Leads";
 
 import "./App.css";
 
@@ -24,19 +23,16 @@ class App extends Component {
         <Security
           issuer="https://bigfootwebservice.okta.com/oauth2/ausacu2zhRbgylKNP356"
           client_id="0oaacx81uD0ndjUyF356"
-          redirect_uri="https://powerful-brushlands-39786.herokuapp.com/implicit/callback"
+          redirect_uri="http://localhost:3000/implicit/callback"
           onAuthRequired={onAuthRequired}
         >
           <div className="App">
             <Navbar />
             <div className="container">
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/staff" exact={true} component={Admin} />
               <SecureRoute path="/posts" component={PostsManager} />
               <SecureRoute path="/form" exact={true} component={PostEditor} />
               <SecureRoute path="/admin" exact={true} component={Admin} />
-              <SecureRoute path="/leads" exact={true} component={Leads} />
-
               <Route
                 path="/login"
                 render={() => (

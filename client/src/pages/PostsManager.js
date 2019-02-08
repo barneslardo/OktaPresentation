@@ -34,7 +34,7 @@ const styles = theme => ({
   }
 });
 
-const API = process.env.PORT || "http://localhost:3001";
+const API = process.env.REACT_APP_API || "http://localhost:3001";
 
 class PostsManager extends Component {
   state = {
@@ -103,7 +103,7 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <h1 class="wacky my-5">Add, Edit or Delete Leads</h1>
+        <Typography variant="display1">Posts Manager</Typography>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>

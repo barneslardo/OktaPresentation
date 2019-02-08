@@ -1,14 +1,12 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 
 const express = require("express");
+const path = require("path-parser");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const epilogue = require("epilogue");
 const OktaJwtVerifier = require("@okta/jwt-verifier");
-const Dealer = require("./cardApp");
 
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
@@ -49,15 +47,7 @@ epilogue.resource({
   endpoints: ["/posts", "/posts/:id"]
 });
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
-
-const port = process.env.PORT || 3001;
+const port = process.env.SERVER_PORT || 3001;
 
 database.sync().then(() => {
   app.listen(port, () => {

@@ -1,20 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { withAuth } from "@okta/okta-react";
-import { withRouter, Route, Redirect, Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   withStyles,
   Typography,
-  Button,
-  IconButton,
   Paper,
   List,
   ListItem,
-  ListItemText,
-  ListItemSecondaryAction
+  ListItemText
 } from "@material-ui/core";
-import { Delete as DeleteIcon, Add as AddIcon } from "@material-ui/icons";
 import moment from "moment";
-import { find, orderBy } from "lodash";
+import { orderBy } from "lodash";
 import { compose } from "recompose";
 
 // import PostEditor from "../components/PostEditor";
