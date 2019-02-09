@@ -15,20 +15,20 @@ const oktaJwtVerifier = new OktaJwtVerifier({
   issuer: process.env.REACT_APP_OKTA_ORG_URL
 });
 
-mongoose.Promise = global.Promise;
-mongoose
-  .connect(
-    process.env.REACT_APP_MONGO_URI,
-    { useNewUrlParser: true }
-  )
-  .then(
-    () => {
-      console.log("Mongo is connected");
-    },
-    err => {
-      console.log("Cannot connect to Mongo" + err);
-    }
-  );
+// mongoose.Promise = global.Promise;
+// mongoose
+//   .connect(
+//     process.env.REACT_APP_MONGO_URI,
+//     { useNewUrlParser: true }
+//   )
+//   .then(
+//     () => {
+//       console.log("Mongo is connected");
+//     },
+//     err => {
+//       console.log("Cannot connect to Mongo" + err);
+//     }
+//   );
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
