@@ -4,7 +4,6 @@ const express = require("express");
 const path = require("path-parser");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const Sequelize = require("sequelize");
 const epilogue = require("epilogue");
 const OktaJwtVerifier = require("@okta/jwt-verifier");
@@ -14,6 +13,14 @@ const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
   issuer: process.env.REACT_APP_OKTA_ORG_URL
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 // mongoose.Promise = global.Promise;
 // mongoose
