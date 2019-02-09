@@ -8,9 +8,12 @@ import Login from "./components/auth/Login";
 import PostsManager from "./pages/PostsManager";
 import Admin from "./components/pages/Admin";
 import PostEditor from "./components/PostEditor";
+
 // import Leads from "./components/pages/Leads";
 
 import "./App.css";
+
+require("dotenv").config();
 
 function onAuthRequired({ history }) {
   history.push("/login");
@@ -23,7 +26,7 @@ class App extends Component {
         <Security
           issuer="https://bigfootwebservice.okta.com/oauth2/ausacu2zhRbgylKNP356"
           client_id="0oaacx81uD0ndjUyF356"
-          redirect_uri={process.env.REACT_APP_CALLBACK_URI}
+          redirect_uri="http://localhost:3000/implicit/callback"
           onAuthRequired={onAuthRequired}
         >
           <div className="App">

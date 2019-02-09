@@ -4,17 +4,34 @@ const express = require("express");
 const path = require("path-parser");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const Sequelize = require("sequelize");
 const epilogue = require("epilogue");
 const OktaJwtVerifier = require("@okta/jwt-verifier");
+const app = express();
 
 const oktaJwtVerifier = new OktaJwtVerifier({
   clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
   issuer: process.env.REACT_APP_OKTA_ORG_URL
 });
 
-const app = express();
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(
+    process.env.REACT_APP_MONGO_URI,
+    { useNewUrlParser: true }
+  )
+  .then(
+    () => {
+      console.log("Mongo is connected");
+    },
+    err => {
+      console.log("Cannot connect to Mongo" + err);
+    }
+  );
+
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
@@ -47,10 +64,7 @@ epilogue.resource({
   endpoints: ["/posts", "/posts/:id"]
 });
 
-const port = process.env.SERVER_PORT || 3001;
+const PORT = process.env.SERVER_PORT || 3001;
 
-database.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-  });
-});
+app.listen = PORT;
+console.log("Server is running");

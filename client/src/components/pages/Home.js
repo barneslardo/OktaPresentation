@@ -35,8 +35,8 @@ export default withAuth(
       const mainContent = this.state.authenticated ? (
         <div>
           <p className="lead">
-            You have entered the staff portal,{" "}
-            <Link to="/staff">click here</Link>
+            You have entered the admin portal,{" "}
+            <Link to="/admin">click here</Link>
           </p>
           <button className="btn btn-primary btn-lg" onClick={this.logout}>
             Logout
