@@ -26,7 +26,7 @@ class App extends Component {
         <Security
           issuer="https://bigfootwebservice.okta.com/oauth2/ausacu2zhRbgylKNP356"
           client_id="0oaacx81uD0ndjUyF356"
-          redirect_uri="http://localhost:3000/implicit/callback"
+          redirect_uri={process.env.REACT_APP_CALLBACK_URI}
           onAuthRequired={onAuthRequired}
         >
           <div className="App">
