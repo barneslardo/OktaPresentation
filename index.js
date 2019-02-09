@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.PORT || 3007;
+const PORT = process.env.PORT;
 
 database.sync().then(() => {
   app.listen(PORT, () => {
