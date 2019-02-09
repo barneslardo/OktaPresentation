@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const express = require("express");
 const path = require("path-parser");
 const cors = require("cors");
@@ -10,17 +8,17 @@ const OktaJwtVerifier = require("@okta/jwt-verifier");
 const app = express();
 
 const oktaJwtVerifier = new OktaJwtVerifier({
-  clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
-  issuer: process.env.REACT_APP_OKTA_ORG_URL
+  clientId: "0oaacx81uD0ndjUyF356",
+  issuer: "https://bigfootwebservice.okta.com/oauth2/ausacu2zhRbgylKNP356"
 });
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-//   const path = require("path");
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//   });
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -59,3 +57,4 @@ const PORT = process.env.SERVER_PORT || 3001;
 
 app.listen = PORT;
 console.log("Server is running");
+console.log(process.env.NODE_ENV);
