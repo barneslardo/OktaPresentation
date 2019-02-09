@@ -46,8 +46,10 @@ epilogue.resource({
   endpoints: ["/posts", "/posts/:id"]
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.SERVER_PORT || 4000;
 
-app.listen = PORT;
-console.log("Server is running");
-console.log(process.env.NODE_ENV);
+database.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server is running on port " + PORT);
+  });
+});
