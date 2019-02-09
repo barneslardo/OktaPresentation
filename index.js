@@ -39,6 +39,10 @@ const Post = database.define("posts", {
   body: Sequelize.TEXT
 });
 
+app.get("/", function(req, res) {
+  res.send("You were right, Skylar");
+});
+
 epilogue.initialize({ app, sequelize: database });
 
 epilogue.resource({
@@ -54,7 +58,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.SERVER_PORT || 3006;
+const PORT = process.env.PORT || 3007;
 
 database.sync().then(() => {
   app.listen(PORT, () => {
