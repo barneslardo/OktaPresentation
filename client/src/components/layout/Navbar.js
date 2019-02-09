@@ -8,7 +8,7 @@ class Navbar extends Component {
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
           <div className="container">
             <Link className="navbar-brand" to="/">
-              Bigfoot Staff Portal
+              Bigfoot Sales Leads
             </Link>
             <button
               className="navbar-toggler"
@@ -27,7 +27,7 @@ class Navbar extends Component {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/posts">
-                    Posts
+                    Leads
                   </Link>
                 </li>
                 <li className="nav-item">

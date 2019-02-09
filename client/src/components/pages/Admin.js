@@ -21,7 +21,7 @@ class Admin extends Component {
     const { currentUserEmail, currentUserName, lastLogged } = this.state;
 
     return (
-      <div>
+      <div className="jumbotron text-light bg-dark">
         <h1 class="wacky my-5">Admin Dash</h1>
         <h1>Welcome {currentUserName}</h1>
         <p>Email: {currentUserEmail}</p>

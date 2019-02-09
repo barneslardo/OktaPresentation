@@ -103,7 +103,7 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <Typography variant="display1">Posts Manager</Typography>
+        <h1 class="wacky my-5">Sales Leads</h1>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
