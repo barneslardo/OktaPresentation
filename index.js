@@ -52,6 +52,10 @@ app.use(async (req, res, next) => {
   }
 });
 
+app.get("/test", function(req, res) {
+  res.send("Test successful");
+});
+
 const database = new Sequelize({
   dialect: "sqlite",
   storage: "./test.sqlite"
