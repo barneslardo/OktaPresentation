@@ -64,14 +64,14 @@ class PostsManager extends Component {
   }
 
   async getPosts() {
-    this.setState({ loading: false, posts: await this.fetch("get", "/posts") });
+    this.setState({ loading: false, posts: await this.fetch("get", "/post") });
   }
 
   savePost = async post => {
     if (post.id) {
-      await this.fetch("put", `/posts/${post.id}`, post);
+      await this.fetch("put", `/post/${post.id}`, post);
     } else {
-      await this.fetch("post", "/posts", post);
+      await this.fetch("post", "/post", post);
     }
 
     this.props.history.goBack();
@@ -79,8 +79,8 @@ class PostsManager extends Component {
   };
 
   async deletePost(post) {
-    if (window.confirm(`Are you sure you want to delete "${post.title}"`)) {
-      await this.fetch("delete", `/posts/${post.id}`);
+    if (window.confirm(`Are you sure you want to delete "${post.name}"`)) {
+      await this.fetch("delete", `/post/${post.id}`);
       this.getPosts();
     }
   }
@@ -93,7 +93,7 @@ class PostsManager extends Component {
     if (this.state.loading) return null;
     const post = find(this.state.posts, { id: Number(id) });
 
-    if (!post && id !== "new") return <Redirect to="/posts" />;
+    if (!post && id !== "new") return <Redirect to="/post" />;
 
     return <PostEditor post={post} onSave={this.savePost} />;
   };
@@ -103,13 +103,13 @@ class PostsManager extends Component {
 
     return (
       <Fragment>
-        <h1 class="wacky my-5">Sales Leads</h1>
+        <h1 className="wacky my-5">Posts Manager</h1>
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
               {orderBy(
                 this.state.posts,
-                ["updatedAt", "title"],
+                ["updatedAt", "name"],
                 ["desc", "asc"]
               ).map(post => (
                 <ListItem
@@ -119,7 +119,7 @@ class PostsManager extends Component {
                   to={`/posts/${post.id}`}
                 >
                   <ListItemText
-                    primary={post.title}
+                    primary={post.name}
                     secondary={
                       post.updatedAt &&
                       `Updated ${moment(post.updatedAt).fromNow()}`
