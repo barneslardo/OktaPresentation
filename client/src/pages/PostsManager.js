@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { withAuth } from "@okta/okta-react";
-import { withRouter, Route, Redirect, Link } from "react-router-dom";
+import React, { Component, Fragment } from 'react';
+import { withAuth } from '@okta/okta-react';
+import { withRouter, Route, Redirect, Link } from 'react-router-dom';
 import {
   withStyles,
   Typography,
@@ -10,36 +10,36 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction
-} from "@material-ui/core";
-import { Delete as DeleteIcon, Add as AddIcon } from "@material-ui/icons";
-import moment from "moment";
-import { find, orderBy } from "lodash";
-import { compose } from "recompose";
+  ListItemSecondaryAction,
+} from '@material-ui/core';
+import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
+import moment from 'moment';
+import { find, orderBy } from 'lodash';
+import { compose } from 'recompose';
 
-import PostEditor from "../components/PostEditor";
+import PostEditor from '../components/PostEditor';
 
 const styles = theme => ({
   posts: {
-    marginTop: 2 * theme.spacing.unit
+    marginTop: 2 * theme.spacing.unit,
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 3 * theme.spacing.unit,
     right: 3 * theme.spacing.unit,
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down('xs')]: {
       bottom: 2 * theme.spacing.unit,
-      right: 2 * theme.spacing.unit
-    }
-  }
+      right: 2 * theme.spacing.unit,
+    },
+  },
 });
 
-const API = process.env.REACT_APP_API || "http://localhost:3001";
+const API = process.env.REACT_APP_API || 'http://localhost:3001';
 
 class PostsManager extends Component {
   state = {
     loading: true,
-    posts: []
+    posts: [],
   };
 
   componentDidMount() {
@@ -52,10 +52,10 @@ class PostsManager extends Component {
         method,
         body: body && JSON.stringify(body),
         headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-          authorization: `Bearer ${await this.props.auth.getAccessToken()}`
-        }
+          'content-type': 'application/json',
+          accept: 'application/json',
+          authorization: `Bearer ${await this.props.auth.getAccessToken()}`,
+        },
       });
       return await response.json();
     } catch (error) {
@@ -64,36 +64,32 @@ class PostsManager extends Component {
   }
 
   async getPosts() {
-    this.setState({ loading: false, posts: await this.fetch("get", "/post") });
+    this.setState({ loading: false, posts: await this.fetch('get', '/posts') });
   }
 
-  savePost = async post => {
+  savePost = async (post) => {
     if (post.id) {
-      await this.fetch("put", `/post/${post.id}`, post);
+      await this.fetch('put', `/posts/${post.id}`, post);
     } else {
-      await this.fetch("post", "/post", post);
+      await this.fetch('post', '/posts', post);
     }
 
     this.props.history.goBack();
     this.getPosts();
-  };
+  }
 
   async deletePost(post) {
-    if (window.confirm(`Are you sure you want to delete "${post.name}"`)) {
-      await this.fetch("delete", `/post/${post.id}`);
+    if (window.confirm(`Are you sure you want to delete "${post.title}"`)) {
+      await this.fetch('delete', `/posts/${post.id}`);
       this.getPosts();
     }
   }
 
-  renderPostEditor = ({
-    match: {
-      params: { id }
-    }
-  }) => {
+  renderPostEditor = ({ match: { params: { id } } }) => {
     if (this.state.loading) return null;
     const post = find(this.state.posts, { id: Number(id) });
 
-    if (!post && id !== "new") return <Redirect to="/post" />;
+    if (!post && id !== 'new') return <Redirect to="/posts" />;
 
     return <PostEditor post={post} onSave={this.savePost} />;
   };
@@ -107,29 +103,14 @@ class PostsManager extends Component {
         {this.state.posts.length > 0 ? (
           <Paper elevation={1} className={classes.posts}>
             <List>
-              {orderBy(
-                this.state.posts,
-                ["updatedAt", "name"],
-                ["desc", "asc"]
-              ).map(post => (
-                <ListItem
-                  key={post.id}
-                  button
-                  component={Link}
-                  to={`/posts/${post.id}`}
-                >
+              {orderBy(this.state.posts, ['updatedAt', 'title'], ['desc', 'asc']).map(post => (
+                <ListItem key={post.id} button component={Link} to={`/posts/${post.id}`}>
                   <ListItemText
-                    primary={post.name}
-                    secondary={
-                      post.updatedAt &&
-                      `Updated ${moment(post.updatedAt).fromNow()}`
-                    }
+                    primary={post.title}
+                    secondary={post.updatedAt && `Updated ${moment(post.updatedAt).fromNow()}`}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton
-                      onClick={() => this.deletePost(post)}
-                      color="inherit"
-                    >
+                    <IconButton onClick={() => this.deletePost(post)} color="inherit">
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
@@ -138,9 +119,7 @@ class PostsManager extends Component {
             </List>
           </Paper>
         ) : (
-          !this.state.loading && (
-            <Typography variant="subheading">No posts to display</Typography>
-          )
+          !this.state.loading && <Typography variant="subheading">No posts to display</Typography>
         )}
         <Button
           variant="fab"
@@ -161,5 +140,5 @@ class PostsManager extends Component {
 export default compose(
   withAuth,
   withRouter,
-  withStyles(styles)
+  withStyles(styles),
 )(PostsManager);
