@@ -39,18 +39,18 @@ app.use(bodyParser.json());
 // app.use("/post", postRoute);
 
 // require auth
-// app.use(async (req, res, next) => {
-//   try {
-//     if (!req.headers.authorization)
-//       throw new Error("Authorization header is required");
-//
-//     const accessToken = req.headers.authorization.trim().split(" ")[1];
-//     await oktaJwtVerifier.verifyAccessToken(accessToken);
-//     next();
-//   } catch (error) {
-//     next(error.message);
-//   }
-// });
+app.use(async (req, res, next) => {
+  try {
+    if (!req.headers.authorization)
+      throw new Error("Authorization header is required");
+
+    const accessToken = req.headers.authorization.trim().split(" ")[1];
+    await oktaJwtVerifier.verifyAccessToken(accessToken);
+    next();
+  } catch (error) {
+    next(error.message);
+  }
+});
 
 const database = new Sequelize({
   dialect: "sqlite",
